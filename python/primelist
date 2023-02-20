@@ -1,0 +1,25 @@
+def isitprime2(num):
+    if num < 2:  # If the parameter is not greater than 1...
+        return False  # ...it is not a prime number
+    numlist = []  # List will hold, at most, every number between 2 and the parameter
+    pnum = True  # Assume the parameter is prime until proven otherwise
+    for x in range(2, num):  # For every number between 2 and the parameter...
+        numlist.append(x)  # ...add the number to the list
+        if num % numlist[x-2] == 0:  # If the parameter is divisible by that number...
+            pnum = False  # ...it is not a prime number
+            break  # Exit the loop
+    return pnum  # return true or false; true if the parameter is prime
+
+
+def listofprimes(num):
+    allnum = []  # List will hold every number between 2 and the parameter
+    lop = []  # List will hold all the prime numbers found between 2 and the parameter
+    for x in range(2, num+1):  # For every number between 2 and the parameter...
+        allnum.append(x)  # ...add that number to this list
+    for j in range(len(allnum)):  # For every number in the list...
+        if isitprime2(allnum[j]):  # ...if that number is prime...
+            lop.append(allnum[j])  # ...add it to the prime list
+    return lop
+
+
+print(listofprimes(102))
