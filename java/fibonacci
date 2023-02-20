@@ -3,11 +3,11 @@ import java.util.Arrays;
 public class fibonacci {
     public static void fibo(int num)
     {
-        if(num < 0){ // If input is negative
+        if(num < 0){ // If parameter is negative
         System.out.println("Cannot compute.");
         System.exit(0); // Close program
         }
-        else if(num == 0){ //If input is zero/a sequence with nothing in it
+        else if(num == 0){ //If parameter is zero/a sequence with nothing in it
             System.out.println("[]");
             System.exit(0);
         }
