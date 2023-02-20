@@ -1,0 +1,49 @@
+public class primelist {
+    public static boolean isitprime2(int num)
+    {
+        if (num < 2){  // If the parameter is not greater than one...
+            return false;  // ...it is not a prime number
+        }
+        int[]numlist = new int[num-2];  // List will hold, at most, every number between 2 and the parameter
+        int count = 2;  // Count starts at two because it's the first prime number
+        boolean pnum = true; // Assume the parameter is prime until proven otherwise
+        for (int i = 0; i<numlist.length; i++) // for every element in the list
+        {
+            numlist[i] = count; // Add "count" into the list (starting with 2)
+            count++; // Iterate "count" by one to put the next number in the list
+            if (num % numlist[i] == 0) { // If the parameter is divisible by this number...
+                pnum = false;  // ... it is not a prime number
+                break; // There's no need to continue looping.  Exit the loop.
+            }
+        }
+        return pnum; // return true or false; true if the parameter is prime
+    }
+
+    public static void listofprimes(int num)
+    {
+        if(num<2) // if parameter is less than 2
+        {
+            // There are no prime numbers less than 2.  Exit.
+            System.out.println("[]");
+            System.exit(3);
+        }
+        // Create an array with every number between 2 and the entry
+        int[]allnum = new int[num-1];
+        int count = 2;
+        for (int i = 0; i<allnum.length; i++)
+        {
+            allnum[i] = count;
+            count++;
+        }
+        for (int j : allnum) { // For every number between 2 and the parameter
+            if (isitprime2(j)) // If it's a prime number
+                System.out.print(j + "  "); // Print it
+        }
+        System.out.println("");
+    }
+
+    public static void main(String[] args)
+    {
+        listofprimes(102);
+    }
+}
