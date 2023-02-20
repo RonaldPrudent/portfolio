@@ -1,0 +1,38 @@
+import java.util.Arrays;
+
+public class fibonacci {
+    public static void fibo(int num)
+    {
+        if(num < 0){ // If input is negative
+        System.out.println("Cannot compute.");
+        System.exit(0); // Close program
+        }
+        else if(num == 0){ //If input is zero/a sequence with nothing in it
+            System.out.println("[]");
+            System.exit(0);
+        }
+        // Create an array.  The length of the array is determined when the function is called
+        int[]fibseq = new int[num];
+        if(num == 1) {  // A fibonacci sequence that is only one element long is 0
+            System.out.println(0);
+            System.exit(0);
+        }
+        else if(num == 2) { // A fibonacci sequence that is only two elements long is 0 and 1
+            System.out.print(0 + ", " + 1);
+            System.exit(0);
+        }
+        else
+            // Give the array the first two numbers of the sequence
+            fibseq[0] = 0;
+            fibseq[1] = 1;
+            for(int i = 2; i<fibseq.length; i++) // for the rest of the sequence
+            {
+                fibseq[i] = fibseq[i-1] + fibseq[i-2]; // the next number is the sum of the previous two
+            }
+            System.out.println(Arrays.toString(fibseq)); //print the fibonacci sequence
+    }
+
+    public static void main(String[] args) {
+        fibo(13);
+    }
+}
