@@ -1,0 +1,33 @@
+public class pangram {
+
+    public static int searchstring(String str, char c)
+    {
+        int count = 0; // Variable will hold the amount of times the char appears in the string
+        char[] strarr = str.toCharArray(); //Convert string to an array for easier searching
+        for (char value : strarr) { // search the entire string
+            if (value == c) // every time you find the char you're looking for
+                count++; //add one to the counter
+        }
+        return count;
+    }
+
+    public static boolean isitpan(String str)
+    {
+        String alpha = "abcdefghijklmnopqrstuvwxyz";
+        char[] alphaarray = alpha.toCharArray(); // Compare strings to this list to determine if they're pangrams
+        str = str.toLowerCase(); // Make the method case-insensitive
+        // For every letter in the alphabet
+        for (char c : alphaarray) {
+            if (searchstring(str, c) == 0) // If that letter is not in the string
+                return false; // The string is not a pangram
+        }
+        return true; // If the method reaches this line, the string is a pangram
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isitpan("Hello, World!"));
+        System.out.println(isitpan("The quick brown fox jumps over the lazy dog"));
+        System.out.println(isitpan("Death is on the tip of her tongue"));
+        System.out.println(isitpan("Pack my box with five dozen liquor jugs."));
+    }
+}
