@@ -1,0 +1,30 @@
+public class palindrome {
+
+    public static String revstring(String str)
+    {
+        char[] strarr = str.toCharArray(); // Convert the string parameter into a char array
+        char[] backwards = new char[strarr.length]; // make a second char array to hold the reversed string
+        int count = 0; // Start with the first index
+        for (int i = strarr.length-1; i>-1; i--) // For every index in the array (starting at the end)
+        {
+            backwards[count] = strarr[i]; // Put this character from the original string into this spot of the new array
+            count++; // Iterate the count/move to the next index
+        }
+        return new String(backwards); // Return the char array you just filled as a string
+    }
+
+    public static void isitapalindrome(String str)
+    {
+        if(str.equals(revstring(str)))  // If the string is identical forwards and backwards...
+            System.out.println(str + " is a palindrome.");  // ...it is a palindrome
+        else
+            System.out.println(str + " is NOT a palindrome.");
+    }
+
+    public static void main(String[] args) {
+        isitapalindrome("fast");
+        isitapalindrome("racecar");
+        isitapalindrome(".dogeeseseegod.");
+        isitapalindrome("yes");
+    }
+}
