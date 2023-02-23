@@ -1,0 +1,73 @@
+import java.util.Arrays;
+public class people {
+    String name;  // Class attribute for the person's name
+    int age; // Class attribute for the person's age (in years)
+
+    //Constructor.  Person object is created with a name and an age
+    public people(String personname, int personage){
+        name = personname;
+        age = personage;
+    }
+
+    //Method.  Prints the person's name and age in the desired format
+    public static void printperson(people p){
+        System.out.println(p.name+": "+p.age+" year(s)");
+    }
+
+    //Method.  Prints an entire list of people objects using the previous print method
+    public static void printpersonlist(people[] pl){
+        for (people people : pl) printperson(people);
+    }
+
+    //Method.  Finds the youngest people in the list and prints them
+    public static void findyoungest(people[] pl){
+        int[] alist = new int[pl.length]; // Array will hold just the ages from the list of people
+        for (int i = 0; i<pl.length; i++) // For loop fills the list with the ages from the people objects
+            alist[i]=pl[i].age;
+        Arrays.sort(alist); // Sort the list of ages.  Youngest first
+        int youngest = alist[0];  // The youngest age is in the first spot
+        System.out.println("The youngest person(s) on the list are:");
+        for (people people : pl) {  // loop through the list of people
+            if (people.age == youngest) {  // If this person's age matches the youngest age...
+                printperson(people);  //...print this person
+            }
+        }
+    }
+
+    //Method.  Finds the oldest people in the list and prints them
+    public static void findoldest(people[] pl){
+        int[] alist = new int[pl.length];
+        for (int i = 0; i<pl.length; i++)
+            alist[i]=pl[i].age;
+        Arrays.sort(alist);
+        int oldest = alist[pl.length-1];  // The oldest age is in the last spot
+        System.out.println("The oldest person(s) on the list are:");
+        for (people people : pl) {
+            if (people.age == oldest){  // If this person's age matches the oldest age...
+                printperson(people);  //...print this person
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        //Constructing various people objects
+        people ron = new people("Ron",36);
+        people john = new people("John", 30);
+        people mary = new people("Mary", 22);
+        people jade = new people("Jade", 54);
+        people nicole = new people("Nicole", 70);
+        people pam = new people("Pam", 12);
+        people simon = new people("Simon", 17);
+        people ken = new people("Ken", 12);
+        people blake = new people("Blake", 70);
+
+        //Creating a list/array of people objects
+        people[] listofpeople = {ron, john, mary, jade, nicole, pam, simon, ken, blake};
+
+        printpersonlist(listofpeople);
+        System.out.println("");
+        findyoungest(listofpeople);
+        System.out.println("");
+        findoldest(listofpeople);
+    }
+}
