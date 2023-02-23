@@ -1,0 +1,72 @@
+class Person:  # Person Object
+    def __init__(self, name, age):  # Person Object Parameters
+        self.name = name
+        self.age = age
+
+
+def printperson(per):  # Print person object
+    print(per.name+": "+str(per.age)+" year(s)")
+
+
+def printpersonlist(plist):  # Print a list of person objects
+    for i in plist:
+        printperson(i)
+
+
+def findyoungest(nlist):
+    alist = []  # List for storing ages from person objects
+    ylist = []  # List for storing the youngest age.  Returning this list
+    for i in range(len(nlist)):  # For every person on the list that was passed in...
+        alist.append(nlist[i].age)  # ...add their age to the age list
+    alist.sort()  # Sort the age list.  Youngest first
+    youngest = alist[0]  # The youngest age is in the first spot
+    for j in range(len(nlist)):
+        if nlist[j].age == youngest:  # If this person is the youngest (or one of the youngest)...
+            ylist.append(nlist[j])  # ...add them to the youngest list
+    return ylist  # Return a list of only the youngest people from the original list
+
+
+def findoldest(nlist):
+    alist = []  # List for storing ages from person objects
+    olist = []  # List for storing the oldest age.  Returning this list
+    for i in range(len(nlist)):  # For every person on the list that was passed in...
+        alist.append(nlist[i].age)  # ...add their age to the age list
+    alist.sort()  # Sort the age list.  Youngest first
+    oldest = alist[len(alist)-1]  # The oldest age is at the end of the list
+    for j in range(len(nlist)):
+        if nlist[j].age == oldest:  # If this person is the oldest (or one of the oldest)...
+            olist.append(nlist[j])  # ...add them to the oldest list
+    return olist  # Return a list of only the oldest people from the original list
+
+
+def printyoungest(nlist):  # Print only the youngest people from the original list
+    ylist = findyoungest(nlist)  # Create a list of only the youngest people
+    print("The youngest person(s) on the list are:")
+    printpersonlist(ylist)  # Print the list
+
+
+def printoldest(nlist):  # Print only the oldest people from the original list
+    olist = findoldest(nlist)  # Create a list of only the oldest people
+    print("The oldest person(s) on the list are:")
+    printpersonlist(olist)  # Print the list
+
+
+# Construct various Person objects
+p1 = Person("Ron", 36)
+p2 = Person("John", 30)
+p3 = Person("Mary", 22)
+p4 = Person("Jade", 54)
+p5 = Person("Nicole", 70)
+p6 = Person("Pam", 12)
+p7 = Person("Simon", 17)
+p8 = Person("Ken", 12)
+p9 = Person("Blake", 70)
+
+# Create a list of person objects
+listofpeople = [p1, p2, p3, p4, p5, p6, p7, p8, p9]
+
+printpersonlist(listofpeople)
+print("")
+printyoungest(listofpeople)
+print("")
+printoldest(listofpeople)
