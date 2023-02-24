@@ -1,0 +1,102 @@
+import java.util.Arrays;
+public class factorize {
+
+    public static int[] listoffactors(int num)
+    {
+        if (num < 0){  // If the parameter is negative...
+            System.out.println("Positive integers only.");  //...Print an error message
+            System.exit(2);  // Exit the function
+        }
+        int[] allnum = new int[num];  // An array that will hold every number between 1 and the parameter
+        int count = 1;  // Variable makes sure the first index is filled with 1 instead of 0
+        for(int i = 0; i<allnum.length; i++)  // For every index in the newly created array
+        {
+            allnum[i] = count;  // put the current value of Count into that index
+            count++;  // iterate count by 1
+        }  // The array should hold every number from 1 to the parameter when the loop is finished
+        int lofsize = 0;  // Variable will tell us how many factors the parameter has/how long the final array is
+        for (int i : allnum) {  // Loop through the array that has all the numbers between 1 and the parameter
+            if (num % i == 0) // If the parameter divided by this number has no remainder...
+                lofsize++;  // ...iterate the size of the final array by one
+        }
+        int[] lof = new int[lofsize];  // Create the array that will hold the factors of the parameter
+        int lofindex = 0;  // Variable dictates where we start filling the array with factors
+        for (int i : allnum) {  // Loop through the array that has all the numbers between 1 and the parameter
+            if (num % i == 0) {  // If the parameter divided by this number has no remainder...
+                lof[lofindex] = i;  // ...it's a factor of the parameter.  Add it to the final array
+                lofindex++;  // Iterate variable so the next index in the final array gets filled next time
+            }
+        }
+        return lof;
+    }
+
+    public static int aliquotsum(int num)
+    {
+        int asum = 0;  // Sum of all the factors of a number (excluding the number itself)
+        int[] lof = listoffactors(num);  // Array containing all the factors of the parameter
+        for (int j : lof) asum += j;  // Loop through all the factors and add them together to get their sum
+        asum = asum - num;  // Exclude the number/parameter itself from the sum of the factors
+        return asum;
+    }
+
+    public static boolean isitperfect(int num)
+    {
+        return num == aliquotsum(num);  // A number is perfect if it is equal to its aliquot sum
+    }
+
+    public static void printperfect(int num)
+    {
+        if (isitperfect(num))  // If the parameter is a perfect number
+            System.out.println(num+" is a Perfect number.");
+        else
+            System.out.println(num+" is not a perfect number.");
+    }
+
+    public static int greatestcommonfactor(int num1, int num2)
+    {
+        int gcf = -1;  // Variable that will be returned/will hold the greatest common factor
+        if(num1 == 0 && num2 == 0)  // If both parameters are 0...
+        {
+            System.out.println("undefined");  // ...there is no greatest common factor
+            System.exit(4);  // Exit the program
+        }
+        // If one parameter is zero, the greatest common factor is the non-zero parameter
+        else if(num1 == 0)
+            return num2;
+        else if(num2 == 0)
+            return num1;
+
+        else {
+            int[] lof1 = listoffactors(num1);  // An array with all the factors of the first parameter
+            int[] lof2 = listoffactors(num2);  // An array with all the factors of the second parameter
+            for (int i = lof1.length - 1; i >= 0; i--)  // Loop through the first array backwards
+            {
+                // Compare the current index of the first array with every index of the second
+                for (int j = lof2.length - 1; j >= 0; j--) {
+                    if (lof1[i] == lof2[j])  // The first match you find between the two arrays...
+                    {
+                        gcf = lof1[i];  // ...that is the greatest common factor
+                        break;  // Leave the loop since the gcf has been found
+                    }
+                }
+                if (gcf != -1)  // If the greatest common factor has been found...
+                    break;  // ...leave this loop
+            }
+        }
+        return gcf;
+    }
+
+    // The product of two numbers divided by their greatest common factor is their least common multiple
+    public static int leastcommonmultiple(int num1, int num2)
+    {
+        return (num1*num2)/greatestcommonfactor(num1,num2);
+    }
+
+    public static void main(String[] args){
+        System.out.println(Arrays.toString(listoffactors(28)));
+        printperfect(28);
+        printperfect(70);
+        System.out.println(greatestcommonfactor(28, 70));
+        System.out.println(leastcommonmultiple(70, 28));
+    }
+}
