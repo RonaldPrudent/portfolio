@@ -1,0 +1,71 @@
+def listoffactors(num):
+    allnum = []  # A list that will hold every number between 1 and the parameter
+    lof = []  # A list that will hold the factors of the parameter
+    if num < 0:  # If the parameter is negative...
+        return "Positive Integers only"  # ...return an error message/exit the function
+    # Fill the list with every number between 1 and the parameter
+    for x in range(1, num+1):
+        allnum.append(x)
+    for j in range(len(allnum)):  # For every number between 1 and the entry...
+        if num % allnum[j] == 0:  # ...if the entry divided by the number has no remainder...
+            lof.append(allnum[j])  # ...then it is a factor of the parameter.  Add it to the list
+    return lof
+
+
+def aliquotsum(num):
+    if num < 0:  # If the parameter is negative...
+        return "Positive Integers only"  # ...return an error message/exit the function
+    asum = 0  # Sum of all the factors of a number (excluding the number itself)
+    lof = listoffactors(num)  # List of all the factors of the parameter
+    lof.remove(num)  # Remove the parameter itself from the list of factors
+    for i in range(len(lof)):  # Loop through the modified list of factors
+        asum = asum + lof[i]  # Add each factor to the total sum
+    return asum
+
+
+def isitperfect(num):
+    if num < 0:  # If the parameter is negative...
+        return "Positive Integers only"  # ...return an error message/exit the function
+    return num == aliquotsum(num)  # A number is perfect if it is equal to its aliquot sum
+
+
+def printperfect(num):
+    if num < 0:  # If the parameter is negative...
+        return "Positive Integers only"  # ...return an error message/exit the function
+    if isitperfect(num):  # If the parameter is a perfect number
+        print(str(num)+" is a Perfect number.")
+    else:
+        print(str(num)+" is not a Perfect number.")
+
+
+def gcf(num1, num2):  # Greatest Common Factor
+    if num1 < 0 or num2 < 0:  # If either parameter is negative
+        return "Positive Integers Only"
+    elif num1 == 0 and num2 == 0:  # If both parameters are 0
+        return "undefined"
+    # If one parameter is zero, the greatest common factor is the non-zero parameter
+    elif num1 == 0:
+        return num2
+    elif num2 == 0:
+        return num1
+    else:
+        lof1 = listoffactors(num1)  # A list with all the factors of the first parameter
+        lof2 = listoffactors(num2)  # A list with all the factors of the second parameter
+        for x in reversed(lof1):  # Loop through the first list backwards
+            for y in reversed(lof2):  # Compare the current index of the first list with every index of the second
+                if x == y:  # The first match you find between the two lists...
+                    return x  # ...is the greatest common factor.  Return it.
+
+
+# The product of two numbers divided by their greatest common factor is their least common multiple
+def leastcommonmultiple(num1, num2):
+    if num1 < 0 or num2 < 0:
+        return "Positive integers only."
+    return int((num1 * num2) / gcf(num1, num2))
+
+
+print(listoffactors(28))
+printperfect(28)
+printperfect(70)
+print(gcf(28, 70))
+print(leastcommonmultiple(70, 28))
