@@ -1,17 +1,18 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class fibonacci {
     public static void fibo(int num)
     {
-        if(num < 0){ // If parameter is negative
+        if(num < 0){ // If input is negative
         System.out.println("Cannot compute.");
         System.exit(0); // Close program
         }
-        else if(num == 0){ //If parameter is zero/a sequence with nothing in it
+        else if(num == 0){ //If input is zero/a sequence with nothing in it
             System.out.println("[]");
             System.exit(0);
         }
-        // Create an array.  The length of the array is determined when the function is called
+        // Create an array.  The length of the array is determined by the parameter
         int[]fibseq = new int[num];
         if(num == 1) {  // A fibonacci sequence that is only one element long is 0
             System.out.println(0);
@@ -32,7 +33,32 @@ public class fibonacci {
             System.out.println(Arrays.toString(fibseq)); //print the fibonacci sequence
     }
 
+    public static void isitfib(int num)
+    {
+        if(num == 0)  // If the parameter is the first number in the Fibonacci Sequence
+            System.out.println("0 is a Fibonacci number.");
+        else if (num == 1)  // If the parameter is the second number in the Fibonacci Sequence
+            System.out.println("1 is a Fibonacci number.");
+        else
+        {
+            // Create a new ArrayList that will hold the fibonacci sequence
+            ArrayList<Integer> fiblist = new ArrayList<Integer>();
+            // Add the first two numbers of the fibonacci sequence to the ArrayList
+            fiblist.add(0);
+            fiblist.add(1);
+            while (fiblist.get(fiblist.size() - 1) < num)  // Loop until the sequence matches or surpasses the parameter
+                // Add the next number in the fibonacci sequence to the ArrayList
+                fiblist.add(fiblist.get(fiblist.size() - 1) + fiblist.get(fiblist.size() - 2));
+            if (num == fiblist.get(fiblist.size() - 1)) // If the parameter is in the sequence...
+                System.out.println(num + " is a Fibonacci number.");
+            else
+                System.out.println(num + " is NOT a Fibonacci number.");
+        }
+    }
+
     public static void main(String[] args) {
         fibo(13);
+        isitfib(13);
+        isitfib(60);
     }
 }
