@@ -22,4 +22,22 @@ def listofprimes(num):
     return lop
 
 
+def primorial(num):
+    lop = []  # List that will hold the first n prime numbers (n = parameter)
+    primproduct = 1  # Variable that will hold the product of the primes (the primorial)
+    count = 0  # Variable will keep track of the size of the list
+    start = 2  # The first prime number is 2, so we start filling the list there
+    while count < num:  # Loop until the list is the size of the parameter
+        if isitprime2(start):  # If the number we're on is prime
+            lop.append(start)  # Add it to the list
+            count = count + 1  # The size of the list has increased by one
+            start = start + 1  # Iterate to the next number that may be added to the list
+        else:  # If the number we're on is not prime
+            start = start + 1  # Iterate to the next number to avoid an infinite loop
+    for i in range(len(lop)):  # loop through all the prime numbers that are listed
+        primproduct = primproduct * lop[i]  # Multiply the current product by the prime in this index
+    return primproduct  # Return the primorial
+
+
 print(listofprimes(102))
+print(primorial(4))
