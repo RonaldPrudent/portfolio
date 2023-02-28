@@ -10,21 +10,23 @@ namespace Fibonacci
                 Console.WriteLine("The Fibonacci sequence begins with 0.");
             else if (num == 0)  // If the paramter is 0/An array with no length
                 Console.WriteLine("[]");
-
-            int[] fibseq = new int[num];  // Create a new array.  The length is determined by the parameter
-            if (num == 1)  // If the length is 1...
-                Console.WriteLine("0");  // ...only print the first number of the fibonacci sequence
-            else if (num == 2) // If the length is 2...
-                Console.WriteLine("0, 1");  // ...only print the first two numbers of the fibonacci sequence
             else
             {
-                // Start with the first two numbers of the Fibonacci sequence
-                fibseq[0] = 0;
-                fibseq[1] = 1;
-                for (int i = 2; i < fibseq.Length; i++)  // Loop through the array (starting at the 3rd index, since we already have the first two numbers)
-                    fibseq[i] = fibseq[i - 1] + fibseq[i - 2];  // The next number in the sequence is the sum of the previous two
-                for(int j = 0; j < fibseq.Length; j++)  // Loop through the entire array
-                    Console.Write(fibseq[j]+ " ");  // Print the sequence
+                int[] fibseq = new int[num];  // Create a new array.  The length is determined by the parameter
+                if (num == 1)  // If the length is 1...
+                    Console.WriteLine("0");  // ...only print the first number of the fibonacci sequence
+                else if (num == 2) // If the length is 2...
+                    Console.WriteLine("0, 1");  // ...only print the first two numbers of the fibonacci sequence
+                else
+                {
+                    // Start with the first two numbers of the Fibonacci sequence
+                    fibseq[0] = 0;
+                    fibseq[1] = 1;
+                    for (int i = 2; i < fibseq.Length; i++)  // Loop through the array (starting at the 3rd index, since we already have the first two numbers)
+                        fibseq[i] = fibseq[i - 1] + fibseq[i - 2];  // The next number in the sequence is the sum of the previous two
+                    for (int j = 0; j < fibseq.Length; j++)  // Loop through the entire array
+                        Console.Write(fibseq[j] + " ");  // Print the sequence
+                }
             }
         }
 
