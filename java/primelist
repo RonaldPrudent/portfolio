@@ -44,6 +44,8 @@ public class primelist {
 
     public static int primorial(int num)
     {
+        if (num < 0)  // If the parameter is negative...
+            return 1;  // ...the primorial is 1
         int[] lop = new int[num];  // Array that will hold the first n prime numbers (n = parameter)
         int primproduct = 1;  // Variable that will hold the product of the primes (the primorial)
         int start = 2;  // The first prime number is 2, so we start filling the array there.
