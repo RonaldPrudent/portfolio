@@ -1,0 +1,79 @@
+using System;
+
+namespace PrimeList
+{
+    class Program
+    {
+        static Boolean isitprime(int num)
+        {
+            if (num < 2)  // If the parameter is not greater than 1...
+                return false;  // ...it is not a prime number
+            int[] numlist = new int[num-2];  // List will hold, at most, every number between 2 and the parameter
+            int count = 2;  // Count starts at two because it's the first prime number
+            Boolean pnum = true;  // Assume the number is prime until proven otherwise
+            for (int i = 0; i < numlist.Length; i++) 
+            {
+                numlist[i] = count;  // Add "Count" variable to the array
+                count++;  // Iterate "Count" by one
+                if (num % numlist[i] == 0)  // If the parameter is divisible by this number...
+                {
+                    pnum = false;  //...it is not prime
+                    break;  // Exit the loop
+                }
+            }
+            return pnum;
+        }
+
+        static void listofprimes(int num) 
+        {
+            if (num < 2)  // if parameter is less than 2
+                Console.WriteLine("[]");  // There are no prime numbers less than 2
+            else
+            {
+                // Create an array with every number between 2 and the entry
+                int[] allnum = new int[num-1];
+                int count = 2;
+                for (int i = 0; i < allnum.Length; i++)
+                {
+                    allnum[i] = count;
+                    count++;
+                }
+
+                for (int j = 0; j < allnum.Length; j++)  // For every number in the array...
+                {
+                    if (isitprime(allnum[j]))  // ...if it's a prime number...
+                        Console.Write(allnum[j] + " ");  //...print it
+                }
+            }
+        }
+
+        static int primorial(int num)
+        {
+            if (num < 0)  // If the parameter is negative...
+                return 1;  // ...the primorial is 1
+            else
+            {
+                int[] lop = new int[num];  // Array that will hold the first n prime numbers (n = parameter)
+                int primproduct = 1;  // Variable that will hold the product of the primes (the primorial)
+                int start = 2;  // The first prime number is 2, so we start filling the array there.
+                for (int i = 0; i < lop.Length; i++)  // For every index in the array...
+                {
+                    while (!isitprime(start))  // If the current value of "start" isn't prime...
+                        start++;  // ...iterate by one until it is
+                    lop[i] = start;  // add the prime number to the array
+                    start++; // Iterate by one to check the next number
+                }
+                for (int j = 0; j < lop.Length; j++)  // Loop through the now filled array
+                    primproduct = primproduct * lop[j];  // Find the overall product of the numbers in the array
+                return primproduct;  // Return the product/primorial
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            listofprimes(102);
+            Console.WriteLine("");
+            Console.WriteLine(primorial(5));
+        }
+    }
+}
