@@ -1,0 +1,121 @@
+using System;
+
+namespace Factorize
+{
+    class Program
+    {
+        static int[] listoffactors(int num)
+        {
+            if (num < 0)
+            {
+                Console.WriteLine("Positive Integers Only.");
+                return new int[0];
+            }
+            else
+            {
+                int[] allnum = new int[num];  // An array that will hold every number between 1 and the parameter
+                int count = 1;  // Variable makes sure the first index is filled with 1 instead of 0
+                for (int i = 0; i < allnum.Length; i++)
+                {
+                    allnum[i] = count;  // put the current value of Count into that index
+                    count++;  // iterate count by 1
+                }
+                int lofsize = 0;
+                for (int j = 0; j < allnum.Length; j++)
+                {
+                    if (num % allnum[j] == 0) // If the parameter divided by this number has no remainder...
+                        lofsize++;  // ...iterate the size of the final array by one
+                }
+                int[] lof = new int[lofsize];  // Create the array that will hold the factors of the parameter
+                int lofindex = 0;  // Variable dictates where we start filling the array with factors
+                for (int k = 0; k < allnum.Length; k++)
+                {
+                    if (num % allnum[k] == 0)
+                    {  // If the parameter divided by this number has no remainder...
+                        lof[lofindex] = allnum[k];  // ...it's a factor of the parameter.  Add it to the final array
+                        lofindex++;  // Iterate variable so the next index in the final array gets filled next time
+                    }
+                }
+                return lof;
+            }
+        }
+
+        static int aliquotsum(int num)
+        {
+            int asum = 0;  // Sum of all the factors of a number (excluding the number itself)
+            int[] lof = listoffactors(num);  // Array containing all the factors of the parameter
+            for (int i = 0; i < lof.Length; i++)  // Loop through all the factors... 
+                asum += lof[i];  // ...and add them together to find the sum
+            asum -= num;  // Subtract the number itself from the final sum to get the aliquot sum
+            return asum;
+        }
+
+        static Boolean isitperfect(int num)
+        {
+            return (num == aliquotsum(num));  // A number is perfect if it is equal to its aliquot sum
+        }
+
+        static void printperfect(int num)
+        {
+            if (isitperfect(num))  // If the number is perfect
+                Console.WriteLine(num.ToString()+" is a Perfect number.");
+            else
+                Console.WriteLine(num.ToString()+" is NOT a Perfect number.");
+        }
+
+        static int? greatestcommonfactor(int num1, int num2)  // Added a "?" after the data type to allow for null returns
+        {
+            int gcf = -1;  // Variable that will be returned/will hold the greatest common factor
+            if (num1 < 0 || num2 < 0)  // If either parameter is negative
+            {
+                Console.WriteLine("Positive Integers Only");
+                return null;
+            }
+            else if (num1 == 0 && num2 == 0)  // If both parameters are 0...
+            {
+                Console.WriteLine("undefined");
+                return null;
+            }
+            //  If one parameter is zero, the greatest common factor is the other parameter
+            else if (num1 == 0)
+                return num2;
+            else if (num2 == 0)
+                return num1;
+            else
+            {
+                int[] lof1 = listoffactors(num1);  // An array with all the factors of the first parameter
+                int[] lof2 = listoffactors(num2);  // An array with all the factors of the second parameter
+                for (int i = lof1.Length - 1; i >= 0; i--)  // Loop through the first array backwards
+                {
+                    for (int j = lof2.Length - 1; j >= 0; j--)
+                    {
+                        if (lof1[i] == lof2[j])  // The first match you find between the two arrays...
+                        {
+                            gcf = lof1[i];  // ...that is the greatest common factor
+                            break;  // Leave the loop since the gcf has been found
+                        }
+                    }
+                    if (gcf != -1)  // If the greatest common factor has been found...
+                        break;  // ...leave this loop
+                }
+            }
+            return gcf;
+        }
+
+        // The product of two numbers divided by their greatest common factor is their least common multiple
+        static int? leastcommonmultiple(int num1, int num2)  // Added a "?" after the data type so it can interact with the previous method
+        {
+            return (num1 * num2) / greatestcommonfactor(num1, num2);
+        }
+
+        static void Main(string[] args)
+        {
+            Console.Write(string.Join(" ", listoffactors(28)));
+            Console.WriteLine("");
+            printperfect(28);
+            printperfect(70);
+            Console.WriteLine(greatestcommonfactor(70, 28));
+            Console.WriteLine(leastcommonmultiple(28, 70));
+        }
+    }
+}
