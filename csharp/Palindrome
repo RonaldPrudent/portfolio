@@ -1,0 +1,35 @@
+using System;
+
+namespace Palindrome
+{
+    class Program
+    {
+        static String revstring(String s)
+        {
+            char[] backwards = new char[s.Length];  // Array that will hold the reversed string
+            int count = 0;  // Variable to make sure new array is filled from the beginning
+            for (int i = s.Length-1; i>-1; i--)  // Loop through the parameter string backwards
+            {
+                backwards[count] = s[i];  // Fill in the char array with chars from the string starting from the end
+                count++;  // iterate the count/move to the next index
+            }
+            return new string(backwards);  // return the filled array as a string
+        }
+
+        static void isitapalindrome(String s)
+        {
+            if (String.Equals(s, revstring(s)))  // If the string parameter is the same forwards and backwards
+                Console.WriteLine(s + " is a palindrome.");
+            else
+                Console.WriteLine(s + " is NOT a palindrome.");
+        }
+
+        static void Main(string[] args)
+        {
+            isitapalindrome("fast");
+            isitapalindrome("racecar");
+            isitapalindrome(".dogeeseseegod.");
+            isitapalindrome("yes");
+        }
+    }
+}
