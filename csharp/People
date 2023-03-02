@@ -1,0 +1,78 @@
+using System;
+
+namespace People
+{
+    class Person
+    {
+        // Fields for Person objects
+        public string name;
+        public int age;
+        public Person(string personname, int personage)  // Constructor
+        {
+            this.name = personname;
+            this.age = personage;
+        }
+
+        static void printperson(Person person)  // Method prints the person's name and age in the desired format
+        {
+            Console.WriteLine(person.name+": "+person.age+" year(s)");
+        }
+
+        // Print an entire list of Person objects using the previous method
+        static void printpersonlist(Person[] pl)
+        {
+            for (int i = 0; i < pl.Length; i++)
+                printperson(pl[i]);
+        }
+
+        static void findyoungest(Person[] pl)
+        {
+            int[] alist = new int[pl.Length]; // Array will hold just the ages from the list of people
+            for (int i = 0; i < pl.Length; i++) // For loop fills the list with the ages from the people objects
+                alist[i] = pl[i].age;
+            Array.Sort(alist);  // Sort the list of ages.  Youngest first
+            int youngest = alist[0];  // The youngest age is in the first spot
+            Console.WriteLine("The youngest person(s) on the list are:");
+            for (int j = 0; j < pl.Length; j++)  // loop through the list of people
+            {
+                if (pl[j].age ==  youngest)  // If this person's age matches the youngest age...
+                    printperson(pl[j]);  //...print this person
+            }
+        }
+
+        static void findoldest(Person[] pl)
+        {
+            int[] alist = new int[pl.Length]; // Array will hold just the ages from the list of people
+            for (int i = 0; i < pl.Length; i++) // For loop fills the list with the ages from the people objects
+                alist[i] = pl[i].age;
+            Array.Sort(alist);  // Sort the list of ages.  Youngest first
+            int oldest = alist[pl.Length-1];  // The oldest age is at the end of the list
+            Console.WriteLine("The oldest person(s) on the list are:");
+            for (int j = 0; j < pl.Length; j++)  // loop through the list of people
+            {
+                if (pl[j].age == oldest)  // If this person's age matches the oldest age...
+                    printperson(pl[j]);  //...print this person
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Person Ron = new Person("Ron", 36);
+            Person John = new Person("John", 30);
+            Person Mary = new Person("Mary", 22);
+            Person Jade = new Person("Jade", 54);
+            Person Nicole = new Person("Nicole", 70);
+            Person Pam = new Person("Pam", 12);
+            Person Simon = new Person("Simon", 17);
+            Person Ken = new Person("Ken", 12);
+            Person Blake = new Person("Blake", 70);
+
+            Person[] plist = { Ron, John, Mary, Jade, Nicole, Pam, Simon, Ken, Blake };
+            printpersonlist(plist);
+            Console.WriteLine("");
+            findyoungest(plist);
+            Console.WriteLine();
+            findoldest(plist);
+        }
+    }
+}
