@@ -1,0 +1,38 @@
+using System;
+
+namespace Pangram
+{
+    class Program
+    {
+        static int searchstring(string input, char c)
+        {
+            int result = 0;  // Variable that tells us the amount of times the char appears in the string
+            for (int i = 0; i < input.Length; i++)  // Search the entire string
+            {
+                if (input[i] == c)  // Every time you find the char you're looking for
+                    result++;  // Add one to the variable
+            }
+            return result;  // Return the final result
+        }
+
+        static Boolean isitapangram(string input)
+        {
+            string alpha = "abcdefghijklmnopqrstuvwxyz";  // The entire English Alphabet.  Used to find pangrams
+            input = input.ToLower();  // Make the method case-insensitive
+            for (int i = 0;i < alpha.Length;i++)  // For every letter in the alphabet
+            {
+                if (searchstring(input, alpha[i]) == 0)  // If that letter is not in the string
+                    return false;  // It is not a pangram
+            }
+            return true;  // If the method reaches this line, the string is a pangram
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine(isitapangram("Hello, World!"));
+            Console.WriteLine(isitapangram("The quick brown fox jumps over the lazy dog"));
+            Console.WriteLine(isitapangram("Death is on the tip of her tongue"));
+            Console.WriteLine(isitapangram("Pack my box with five dozen liquor jugs."));
+        }
+    }
+}
