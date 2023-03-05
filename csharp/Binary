@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+
+namespace Binary
+{
+    class Program
+    {
+        static void printbinary(int num)
+        {
+            if (num < 0)  // If the parameter is negative
+                Console.Write("-");  // The binary result is negative
+            List<int> result = new List<int>();  // List that will hold the digits of the Binary number
+            do
+            {
+                if(num % 2 == 0)  // If num is divisible by 2
+                    result.Add(0);  // Add a 0 to the binary number
+                else  // If num is not divisible by 2
+                    result.Add(1);  // Add a 1 to the binary number
+                num = num / 2;  // Divide the number by 2 (automatically rounds down if number is odd)
+            } while (num != 0);  // If the division above results in 0, leave the loop
+            result.Reverse();  // The digits were added to the binary list backwards.  Reverse them to get the final result
+            for(int i = 0; i < result.Count; i++)  // Print the final result
+                Console.Write(result[i]);
+            Console.WriteLine("");
+        }
+
+        static void printdecimal(int num)
+        {
+            // Convert the parameter to an array
+            var binarr = Math.Abs(num).ToString().Select(t => int.Parse(t.ToString())).ToArray();
+            for (int i = 0;i < binarr.Length;i++)  // Check each digit of the number
+            {
+                if (binarr[i] !=1 && binarr[i] != 0)  // If the number is not binary
+                {
+                    Console.WriteLine("Binary Numbers Only.");  // Print an error message
+                    System.Environment.Exit(0);  // Exit the program
+                }
+            }
+            double decresult = 0;  // Variable that will hold the final decimal result
+            int power = 0;  // Conversion involves raising 2 to the nth power (n = reversed index)
+            for (int j = binarr.Length - 1; j >= 0; j--)  // For every digit
+            {
+                // Multiply the digit by 2^n (n = reversed index) and add the product to the final decimal
+                decresult = decresult + (binarr[j] * (Math.Pow(2, power)));
+                power++;  // Increment the power for the next digit
+            }
+            if (num < 0)  // If the parameter is negative
+                decresult = decresult * -1;  // The resulting decimal is negative
+            Console.WriteLine(decresult);
+        }
+        static void Main(string[] args)
+        {
+            printbinary(682);
+            printdecimal(11000101);
+        }
+    }
+}
