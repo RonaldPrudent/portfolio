@@ -1,0 +1,36 @@
+def printbinary(num):
+    if num < 0:  # If the parameter is negative
+        print("-", end='')  # The resulting binary number is negative
+    result = []  # List that will hold the digits of the binary number
+    while True:  # Loop of division.  Loop stops when the quotient (as an int) is zero
+        if num % 2 == 0:  # If num is divisible by 2
+            result.append(0)  # add a zero to the binary number
+        else:  # If num divided by 2 leaves a remainder
+            result.append(1)  # add a 1 to the binary number
+        num = int(num/2)  # Divide the number by 2 (Round down if quotient isn't a whole integer)
+        if num == 0:  # If quotient is zero
+            break  # Leave the loop
+    result.reverse()  # The binary digits were added backwards.  Reverse them now to get the final result
+    for i in result:
+        print(i, end='')  # Print the final result without spaces
+    print("")
+
+
+def printdecimal(num):
+    binlist = list(map(int, str(abs(num))))  # Convert the parameter into a list
+    for h in range(len(binlist)):  # Go through every digit in the parameter
+        if binlist[h] != 1 and binlist[h] != 0:  # If parameter isn't binary
+            print("Binary Numbers Only.")  # Print an error message
+            quit()  # Exit the program (not just the function)
+    binlist.reverse()  # Reverse the order of the digits
+    decresult = 0  # Sum/Final decimal amount
+    for i in range(len(binlist)):  # Go through all the digits of the binary number
+        # Multiply the digit by 2 to the nth power (n = reversed index), then add the product to the sum
+        decresult = decresult + (binlist[i]*(2**i))
+    if num < 0:  # If parameter is negative
+        decresult = decresult * -1  # The resulting decimal is negative
+    print(decresult)  # The sum is the binary parameter converted to decimal
+
+
+printbinary(682)
+printdecimal(11000101)
