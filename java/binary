@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+
+public class binary {
+
+    public static void printbinary(int num)
+    {
+        if(num < 0)  // If the parameter is negative
+            System.out.print("-");  // The binary result is negative
+        ArrayList<Integer> result = new ArrayList<Integer>();  // List that will hold the digits of the binary number
+        do {
+            if (num % 2 == 0)  // If num is divisible by 2
+                result.add(0);  // Add a 0 to the binary number
+            else  // If num is not divisible by 2
+                result.add(1);  // Add a 1 to the binary number
+            num = num / 2;  // Divide the number by 2 (automatically rounds down if the number is odd)
+        } while (num != 0);  // If the division above results in 0, leave the loop
+        // The binary digits were added backwards.  Print the list in reverse to get the binary number
+        for (int i = result.size()-1; i >= 0; i--)
+            System.out.print(result.get(i));
+        System.out.println("");
+    }
+
+    public static void printdecimal(int num)
+    {
+        // Convert the binary number into an int array
+        String binstring = Integer.toString(Math.abs(num));
+        int[] binarr = new int[binstring.length()];
+        for (int h = 0; h < binstring.length(); h++)
+            binarr[h] = binstring.charAt(h) - '0';
+        // Loop through the array and make sure the parameter is a binary number
+        for (int i : binarr) {
+            if (i != 1 && i != 0) {
+                System.out.println("Binary Numbers Only.");
+                System.exit(0);
+            }
+        }
+        double decresult = 0;  // Variable that will hold that final decimal result
+        int power = 0;  // Conversion involves raising 2 to the nth power (n = reversed index)
+        for (int j = binarr.length-1; j>=0; j--) {  // For every digit
+            // Multiply the digit by 2^n (n = reversed index) and add the product to the final decimal
+            decresult = decresult + (binarr[j] * (Math.pow(2, power)));
+            power++;  // Increment the power for the next digit
+        }
+        if (num < 0)  // If the parameter is negative
+            decresult = decresult * -1;  // The resulting decimal is negative
+        System.out.println((int) decresult);  // Cast the result to an int for formatting
+    }
+
+    public static void main(String[] args)
+    {
+        printbinary(682);
+        printdecimal(11000101);
+    }
+}
