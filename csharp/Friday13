@@ -1,0 +1,24 @@
+using System;
+
+namespace Friday13
+{
+    class Program
+    {
+        static Boolean hasfriday13(int month, int year)
+        {
+            DateTime pd = new DateTime(year, month, 13);  // Set the date to the 13th day of the given month in the given year
+            // If the 13th day of the the given month in the given year is a Friday
+            if (String.Equals(pd.DayOfWeek.ToString(), "Friday"))
+                return true;
+            else
+                return false;
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine(hasfriday13(10, 2023));
+            Console.WriteLine(hasfriday13(3, 2023));
+            Console.WriteLine(hasfriday13(5, 2022));
+            Console.WriteLine(hasfriday13(1, 2020));
+        }
+    }
+}
