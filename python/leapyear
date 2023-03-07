@@ -1,0 +1,12 @@
+import datetime
+
+
+def isitaleapyear(year):
+    lastday = datetime.datetime(year, 12, 31)  # Variable set to the last day of the year
+    return int(lastday.strftime("%j")) == 366  # If the last day is the 366th, it's a leap year
+
+
+print(isitaleapyear(2023))
+print(isitaleapyear(2024))
+print(isitaleapyear(2020))
+print(isitaleapyear(1986))
