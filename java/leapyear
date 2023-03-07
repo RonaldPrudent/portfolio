@@ -1,0 +1,17 @@
+import java.time.LocalDate;
+public class leapyear {
+
+    public static boolean isitaleapyear(int year)
+    {
+        // If the last day of the year is the 366th, it's a lear year
+        return LocalDate.of(year, 12, 31).getDayOfYear() == 366;
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println(isitaleapyear(2023));
+        System.out.println(isitaleapyear(2024));
+        System.out.println(isitaleapyear(2020));
+        System.out.println(isitaleapyear(1986));
+    }
+}
