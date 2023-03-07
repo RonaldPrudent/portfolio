@@ -1,0 +1,22 @@
+using System;
+
+namespace LeapYear
+{
+    class Program
+    {
+        static Boolean isitaleapyear(int year)
+        {
+            DateTime ply = new DateTime(year, 12, 31);  // Set the date to December 31 of the given year
+            return ply.DayOfYear == 366;  // If December 31st is the 366th day of the year, it is a leap year
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine(isitaleapyear(2023));
+            Console.WriteLine(isitaleapyear(2024));
+            Console.WriteLine(isitaleapyear(2020));
+            Console.WriteLine(isitaleapyear(1986));
+            
+        }
+    }
+}
