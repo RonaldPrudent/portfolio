@@ -1,0 +1,15 @@
+import datetime
+
+
+def hasfriday13(month, year):
+    x = datetime.datetime(year, month, 13)  # Set the date to the 13th day of the given month in the given year
+    if x.strftime("%A") == "Friday":  # If the 13th day of this particular month is a Friday
+        return True
+    else:
+        return False
+
+
+print(hasfriday13(10, 2023))
+print(hasfriday13(3, 2023))
+print(hasfriday13(5, 2022))
+print(hasfriday13(1, 2020))
