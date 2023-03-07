@@ -1,0 +1,16 @@
+import java.time.LocalDate;
+
+public class friday13 {
+    public static boolean hasfriday13(int month, int year)
+    {
+        // If the 13th day of the given month in the given year lands on a Friday, return True
+        return LocalDate.of(year, month, 13).getDayOfWeek().getValue() == 5;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(hasfriday13(10,2023));
+        System.out.println(hasfriday13(3, 2023));
+        System.out.println(hasfriday13(5, 2022));
+        System.out.println(hasfriday13(1, 2020));
+    }
+}
