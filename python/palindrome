@@ -13,7 +13,4 @@ def isitapalindrome(string):
         print(string + " is NOT a palindrome")
 
 
-isitapalindrome("fast")
-isitapalindrome("racecar")
-isitapalindrome(".dogeeseseegod.")
-isitapalindrome("yes")
+isitapalindrome(input("Enter string: "))
