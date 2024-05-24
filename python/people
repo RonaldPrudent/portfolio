@@ -1,3 +1,6 @@
+import random
+
+
 class Person:  # Person Object
     def __init__(self, name, age):  # Person Object Parameters
         self.name = name
@@ -52,15 +55,15 @@ def printoldest(nlist):  # Print only the oldest people from the original list
 
 
 # Construct various Person objects
-p1 = Person("Ron", 36)
-p2 = Person("John", 30)
-p3 = Person("Mary", 22)
-p4 = Person("Jade", 54)
-p5 = Person("Nicole", 70)
-p6 = Person("Pam", 12)
-p7 = Person("Simon", 17)
-p8 = Person("Ken", 12)
-p9 = Person("Blake", 70)
+p1 = Person("Ron", random.randrange(18, 66))
+p2 = Person("John", random.randrange(18, 66))
+p3 = Person("Mary", random.randrange(18, 66))
+p4 = Person("Jade", random.randrange(18, 66))
+p5 = Person("Nicole", random.randrange(18, 66))
+p6 = Person("Pam", random.randrange(18, 66))
+p7 = Person("Simon", random.randrange(18, 66))
+p8 = Person("Ken", random.randrange(18, 66))
+p9 = Person("Blake", random.randrange(18, 66))
 
 # Create a list of person objects
 listofpeople = [p1, p2, p3, p4, p5, p6, p7, p8, p9]
