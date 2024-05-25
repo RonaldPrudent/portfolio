@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class pangram {
 
     public static int searchstring(String str, char c)
@@ -11,23 +12,23 @@ public class pangram {
         return count;
     }
 
-    public static boolean isitpan(String str)
+    public static String isitpan(String str)
     {
         String alpha = "abcdefghijklmnopqrstuvwxyz";
         char[] alphaarray = alpha.toCharArray(); // Compare strings to this list to determine if they're pangrams
-        str = str.toLowerCase(); // Make the method case-insensitive
+        String lstr = str.toLowerCase(); // Make the method case-insensitive
         // For every letter in the alphabet
         for (char c : alphaarray) {
-            if (searchstring(str, c) == 0) // If that letter is not in the string
-                return false; // The string is not a pangram
+            if (searchstring(lstr, c) == 0) // If that letter is not in the string
+                return "'" + str + "' is NOT a pangram."; // The string is not a pangram
         }
-        return true; // If the method reaches this line, the string is a pangram
+        return "'" + str + "' is a pangram."; // If the method reaches this line, the string is a pangram
     }
 
     public static void main(String[] args) {
-        System.out.println(isitpan("Hello, World!"));
-        System.out.println(isitpan("The quick brown fox jumps over the lazy dog"));
-        System.out.println(isitpan("Death is on the tip of her tongue"));
-        System.out.println(isitpan("Pack my box with five dozen liquor jugs."));
+        Scanner uinput = new Scanner(System.in);  // Scanner object used to take user input
+        System.out.print("Enter string: ");  // Prompt the user for input
+        String ustring = uinput.nextLine();  // The next thing the user enters will be a string under this variable
+        System.out.println(isitpan(ustring));  // Find out if the user's input is a palindrome
     }
 }
