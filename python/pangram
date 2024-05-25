@@ -11,11 +11,8 @@ def isitpan(string):
     string = string.lower()  # Make the function case-insensitive
     for i in range(len(alpha)):  # For every letter of the alphabet...
         if searchstring(string, alpha[i]) == 0:  # ...look for that letter in the string.  If it isn't found...
-            return False  # ...the string is not a pangram
-    return True  # If this line is reached, every letter was found, at least, once.  The string is a pangram
+            return "'" + string + "' is NOT a pangram."  # ...the string is not a pangram
+    return "'" + string + "' is a pangram"  # If this line is reached, every letter was found, at least, once.  The string is a pangram
 
 
-print(isitpan("Hello, World!"))
-print(isitpan("The quick brown fox jumps over the lazy dog"))
-print(isitpan("Death is on the tip of her tongue"))
-print(isitpan("Pack my box with five dozen liquor jugs."))
+print(isitpan(input("Input string: ")))
