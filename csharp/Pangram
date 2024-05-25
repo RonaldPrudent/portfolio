@@ -15,24 +15,23 @@ namespace Pangram
             return result;  // Return the final result
         }
 
-        static Boolean isitapangram(string input)
+        static String isitapangram(string input)
         {
             string alpha = "abcdefghijklmnopqrstuvwxyz";  // The entire English Alphabet.  Used to find pangrams
-            input = input.ToLower();  // Make the method case-insensitive
+            string linput = input.ToLower();
             for (int i = 0;i < alpha.Length;i++)  // For every letter in the alphabet
             {
-                if (searchstring(input, alpha[i]) == 0)  // If that letter is not in the string
-                    return false;  // It is not a pangram
+                if (searchstring(linput, alpha[i]) == 0)  // If that letter is not in the string
+                    return "'" + input + "' is NOT a pangram.";  // It is not a pangram
             }
-            return true;  // If the method reaches this line, the string is a pangram
+            return "'" + input + "' is a pangram.";  // If the method reaches this line, the string is a pangram
         }
 
         static void Main(string[] args)
         {
-            Console.WriteLine(isitapangram("Hello, World!"));
-            Console.WriteLine(isitapangram("The quick brown fox jumps over the lazy dog"));
-            Console.WriteLine(isitapangram("Death is on the tip of her tongue"));
-            Console.WriteLine(isitapangram("Pack my box with five dozen liquor jugs."));
+            Console.Write("Enter string: "); // Prompt the user for input
+            String uinput = Console.ReadLine();  // The next string entered is saved under this variable
+            Console.WriteLine(isitapangram(uinput)); // Check if user entery is a pangram
         }
     }
 }
