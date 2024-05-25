@@ -18,18 +18,17 @@ namespace Palindrome
 
         static void isitapalindrome(String s)
         {
-            if (String.Equals(s, revstring(s)))  // If the string parameter is the same forwards and backwards
-                Console.WriteLine(s + " is a palindrome.");
+            if (String.Equals(s.Replace(" ",""), revstring(s).Replace(" ",""), StringComparison.OrdinalIgnoreCase))  // If the string parameter is the same forwards and backwards
+                Console.WriteLine("'" + s + "' is a palindrome.");
             else
-                Console.WriteLine(s + " is NOT a palindrome.");
+                Console.WriteLine("'" + s + "' is NOT a palindrome.");
         }
 
         static void Main(string[] args)
         {
-            isitapalindrome("fast");
-            isitapalindrome("racecar");
-            isitapalindrome(".dogeeseseegod.");
-            isitapalindrome("yes");
+            Console.Write("Enter String: ");  // Prompt the user for input
+            String uinput = Console.ReadLine();  // The next string entered is saved under this variable
+            isitapalindrome(uinput);  // Check if user entry is a palindrome
         }
     }
 }
