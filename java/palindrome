@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class palindrome {
 
     public static String revstring(String str)
@@ -15,16 +16,17 @@ public class palindrome {
 
     public static void isitapalindrome(String str)
     {
-        if(str.equals(revstring(str)))  // If the string is identical forwards and backwards...
-            System.out.println(str + " is a palindrome.");  // ...it is a palindrome
+        // If the string is identical forwards and backwards (spacing and letter casing aside)...
+        if(str.replaceAll("\\s+","").equalsIgnoreCase(revstring(str).replaceAll("\\s+","")))
+            System.out.println("'" + str + "' is a palindrome.");  // ...it is a palindrome
         else
-            System.out.println(str + " is NOT a palindrome.");
+            System.out.println("'" + str + "' is NOT a palindrome.");
     }
 
     public static void main(String[] args) {
-        isitapalindrome("fast");
-        isitapalindrome("racecar");
-        isitapalindrome(".dogeeseseegod.");
-        isitapalindrome("yes");
+        Scanner uinput = new Scanner(System.in);  // Scanner object used to take user input
+        System.out.print("Enter string: ");  // Prompt the user for input
+        String ustring = uinput.nextLine();  // The next thing the user enters will be a string under this variable
+        isitapalindrome(ustring);  // Find out if the user's input is a palindrome
     }
 }
