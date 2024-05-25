@@ -7,8 +7,7 @@ def revstring(string):
 
 
 def isitapalindrome(string):
-    string = string.lower()
-    if revstring(string) == string:  # If the String parameter is the same forwards and backwards...
+    if revstring(string).casefold().replace(" ", "") == string.casefold().replace(" ", ""):  # If the String parameter is the same forwards and backwards...
         print("'" + string + "' is a palindrome")  # ...it is a palindrome
     else:
         print("'" + string + "' is NOT a palindrome")
