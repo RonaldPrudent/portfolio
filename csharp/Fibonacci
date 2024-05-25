@@ -7,7 +7,7 @@ namespace Fibonacci
         static void fibo(int num)
         {
             if (num < 0)  // If the parameter is negative
-                Console.WriteLine("The Fibonacci sequence begins with 0.");
+                Console.WriteLine("[]");
             else if (num == 0)  // If the paramter is 0/An array with no length
                 Console.WriteLine("[]");
             else
@@ -16,7 +16,7 @@ namespace Fibonacci
                 if (num == 1)  // If the length is 1...
                     Console.WriteLine("0");  // ...only print the first number of the fibonacci sequence
                 else if (num == 2) // If the length is 2...
-                    Console.WriteLine("0, 1");  // ...only print the first two numbers of the fibonacci sequence
+                    Console.WriteLine("0 1");  // ...only print the first two numbers of the fibonacci sequence
                 else
                 {
                     // Start with the first two numbers of the Fibonacci sequence
@@ -32,7 +32,9 @@ namespace Fibonacci
 
         static void Main(string[] args)
         {
-            fibo(13);
+            Console.Write("How many numbers in this sequence?: ");
+            int flength = Convert.ToInt32(Console.ReadLine());
+            fibo(flength);
         }
     }
 }
