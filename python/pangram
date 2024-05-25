@@ -7,10 +7,9 @@ def searchstring(string, cha):
 
 
 def isitpan(string):
-    alpha = list("abcdefghijklmnopqrstuvwxyz")  # Compare strings to this list to determine if they're pangrams
-    string = string.lower()  # Make the function case-insensitive
+    alpha = list("abcdefghijklmnopqrstuvwxyz".casefold())  # Compare strings to this list to determine if they're pangrams
     for i in range(len(alpha)):  # For every letter of the alphabet...
-        if searchstring(string, alpha[i]) == 0:  # ...look for that letter in the string.  If it isn't found...
+        if searchstring(string.casefold(), alpha[i]) == 0:  # ...look for that letter in the string.  If it isn't found...
             return "'" + string + "' is NOT a pangram."  # ...the string is not a pangram
     return "'" + string + "' is a pangram"  # If this line is reached, every letter was found, at least, once.  The string is a pangram
 
