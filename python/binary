@@ -1,4 +1,15 @@
-def printbinary(num):
+def printbinary():
+    firsttime = True  # This is the user's first attempt at converting a decimal into a binary
+    while True:  # Program only exits loop when it reaches a break statement
+        try:
+            if firsttime:  # If this is the user's first attempt
+                num = int(input("Enter a decimal number: "))  # Prompt user for a decimal number
+                break  # If input is valid, exit the loop
+            else:  # If this is not the user's first attempt
+                num = int(input("Please enter a decimal number in the form of an integer: "))
+                break
+        except:  # If the input is not valid...
+            firsttime = False  # The next attempt is not the user's first.  Go back to top of While loop
     if num < 0:  # If the parameter is negative
         print("-", end='')  # The resulting binary number is negative
     result = []  # List that will hold the digits of the binary number
@@ -16,12 +27,29 @@ def printbinary(num):
     print("")
 
 
-def printdecimal(num):
+def binvalidate(num):  # Check if user input is a valid binary number
     binlist = list(map(int, str(abs(num))))  # Convert the parameter into a list
     for h in range(len(binlist)):  # Go through every digit in the parameter
         if binlist[h] != 1 and binlist[h] != 0:  # If parameter isn't binary
-            print("Binary Numbers Only.")  # Print an error message
-            quit()  # Exit the program (not just the function)
+            raise ValueError
+        else:
+            return binlist  # return the binary number as a list of digits
+
+
+def printdecimal():
+    firsttime = True
+    while True:
+        try:
+            if firsttime:
+                num = int(input("Enter a binary number: "))
+                binlist = binvalidate(num)  # User input is validated, then converted to a list
+                break
+            else:
+                num = int(input("Please enter a binary number (binary numbers consist only of '1's and/or '0's): "))
+                binlist = binvalidate(num)
+                break
+        except:
+            firsttime = False
     binlist.reverse()  # Reverse the order of the digits
     decresult = 0  # Sum/Final decimal amount
     for i in range(len(binlist)):  # Go through all the digits of the binary number
@@ -32,5 +60,5 @@ def printdecimal(num):
     print(decresult)  # The sum is the binary parameter converted to decimal
 
 
-printbinary(682)
-printdecimal(11000101)
+printbinary()
+printdecimal()
