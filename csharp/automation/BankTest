@@ -1,0 +1,118 @@
+using NUnit.Framework;
+
+using OpenQA.Selenium;
+
+using OpenQA.Selenium.Chrome;
+
+using OpenQA.Selenium.Support.UI;
+
+using SeleniumExtras.WaitHelpers;
+
+using System;
+
+
+namespace TestProject1
+{
+    public class Tests
+    {
+        ChromeDriver driver;  // Creates Driver instance.  This instance will use the Chrome Browser
+        [OneTimeSetUp]
+        public void Initialize()
+        {
+            
+            driver = new ChromeDriver();  // Initialize driver
+        }
+
+        [Test]
+        public void SmokeTest()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));  // Create a Wait object with a 10 second time frame
+
+            driver.Url = "https://parabank.parasoft.com/parabank/index.htm";  // Open browser to this webpage
+            Assert.IsTrue(driver.Title.Equals("ParaBank | Welcome | Online Banking"));  // Make sure we are on the correct page
+
+            // Customer Login Text should be visible
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='leftPanel']/h2")).Text.Equals("Customer Login"));
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='leftPanel']/h2")).Displayed);
+
+            // The login panel should be visible on screen
+            Assert.IsTrue(driver.FindElement(By.Id("loginPanel")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='loginPanel']/form")).Displayed);
+
+            // Enter Credentials
+            driver.FindElement(By.Name("username")).SendKeys("john");
+            driver.FindElement(By.Name("password")).SendKeys("demo");
+
+            System.Threading.Thread.Sleep(3000);  // Pause program so humans can see what's going on
+
+            driver.FindElement(By.CssSelector("[value='Log In']")).Click();  // Click the Log In button
+
+            System.Threading.Thread.Sleep(3000);
+
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("smallText")));  // Wait until user's name is visible
+            Assert.IsTrue(driver.Title.Equals("ParaBank | Accounts Overview"));  // Make sure you are on the right page
+            Assert.IsTrue(driver.FindElement(By.ClassName("smallText")).Text.Equals("Welcome John Smith")); // Make sure user's name is displayed here
+
+            // Make sure the correct title is on the screen
+            Assert.IsTrue(driver.FindElement(By.ClassName("title")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.ClassName("title")).Text.Equals("Accounts Overview"));
+
+            // Click the first account in the account table after making a note of the account number
+            Assert.IsTrue(driver.FindElement(By.Id("accountTable")).Displayed);
+            String accountNumber = driver.FindElement(By.XPath("//*[@id='accountTable']/tbody/tr[1]/td[1]/a")).Text;
+            driver.FindElement(By.XPath("//*[@id='accountTable']/tbody/tr[1]/td[1]/a")).Click();
+            System.Threading.Thread.Sleep(3000);
+
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("title")));  // Wait until next page loads
+            Assert.IsTrue(driver.Title.Equals("ParaBank | Account Activity")); // Make sure you are on the right page
+
+            // Make sure the correct title is on the screen
+            Assert.IsTrue(driver.FindElement(By.ClassName("title")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.ClassName("title")).Text.Equals("Account Details"));
+
+            // Make sure we are looking at the correct account
+            Assert.IsTrue(driver.FindElement(By.Id("accountDetails")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.Id("accountId")).Text.Equals(accountNumber));
+
+            // Confirm "About Us" appears on the page, then click it
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='footerPanel']/ul[1]/li[2]/a")).Text.Equals("About Us"));
+            driver.FindElement(By.XPath("//*[@id='footerPanel']/ul[1]/li[2]/a")).Click();
+            System.Threading.Thread.Sleep(3000);
+
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("title")));  // Wait until next page loads
+            Assert.IsTrue(driver.Title.Equals("ParaBank | About Us")); // Make sure you are on the right page
+
+            // Make sure the correct title is on the screen
+            Assert.IsTrue(driver.FindElement(By.ClassName("title")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.ClassName("title")).Text.Equals("ParaSoft Demo Website"));
+
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='rightPanel']/p[2]")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='rightPanel']/p[2]")).Text.Equals("In other words: ParaBank is not a real bank!"));
+            System.Threading.Thread.Sleep(5000);
+
+            // Confirm that "Log Out" is on the screen, then log out
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='leftPanel']/ul/li[8]/a")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='leftPanel']/ul/li[8]/a")).Text.Equals("Log Out"));
+            driver.FindElement(By.XPath("//*[@id='leftPanel']/ul/li[8]/a")).Click();
+
+            // Confirm that we are back on the starting page
+            wait.Until(ExpectedConditions.ElementIsVisible(By.Id("loginPanel")));
+            Assert.IsTrue(driver.Title.Equals("ParaBank | Welcome | Online Banking"));  // Make sure we are on the correct page
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='leftPanel']/h2")).Text.Equals("Customer Login"));
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='leftPanel']/h2")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.Id("loginPanel")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.XPath("//*[@id='loginPanel']/form")).Displayed);
+
+            // Make sure user's name is not on the screen
+            Assert.IsTrue(driver.FindElements(By.ClassName("smallText")).Count == 0);
+            System.Threading.Thread.Sleep(5000);
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            driver.Close();
+            driver.Quit();
+        }
+    }
+}
