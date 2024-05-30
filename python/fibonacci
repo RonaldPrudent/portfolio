@@ -1,16 +1,16 @@
-def fibtrad(num):
+def fibo(num):
     fiblist = [0, 1]  # The first two fibonacci numbers
     count = 2  # Current size of the list.  The list already has two numbers so the count is 2
-    if num < 0:  # Parameter can't be negative
+    if num < 0:  # Input can't be negative
         print("Cannot compute.")
-    elif num == 0:  # If parameter is zero/a sequence with nothing in it
+    elif num == 0:  # If input is zero/a sequence with nothing in it
         print("[]")
     elif num == 1:  # A fibonacci sequence that is only one element long is 0
         print(0)
     elif num == 2:  # A fibonacci sequence that is only two elements long is 0 and 1
         print(*fiblist, sep=', ')  # Print the list (only 0 and 1 at this point)
     else:
-        while count < num:  # Loop continues until list is the size that was parameter
+        while count < num:  # Loop continues until list is the size that was input
             fiblist.append(fiblist[-1] + fiblist[-2])  # The next item in the list is the sum of the previous two
             count = count + 1  # Update variable since list just got one element bigger
         print(*fiblist, sep=', ')  # Print the list
@@ -18,7 +18,7 @@ def fibtrad(num):
 
 def isitfib(num):
     fiblist = [0, 1]  # The first two fibonacci numbers
-    while fiblist[-1] <= num:  # If the sequence hasn't matched or surpassed the given parameter...
+    while fiblist[-1] <= num:  # If the sequence hasn't matched or surpassed the parameter...
         fiblist.append(fiblist[-1] + fiblist[-2])  # ...add the next number to the sequence
     if num in fiblist:  # if the sequence matched the parameter
         print(f"{num} is a Fibonacci number")
@@ -26,6 +26,30 @@ def isitfib(num):
         print(f"{num} is NOT a Fibonacci number")
 
 
-fibtrad(13)
-isitfib(89)
-isitfib(60)
+firsttime = True
+while True:  # Loop until code reaches a break statement
+    try:
+        if firsttime:  # If this is your first time being prompted...
+            # ...prompt user to input the length of the list
+            fibo(int(input("How many numbers in this sequence?: ")))
+            break  # Leave while loop if input is valid
+        else:  # If this is not your first time through the loop
+            fibo(int(input("Please enter an integer: ")))
+            break  # Leave while loop if input is valid
+    except:  # If input is invalid...
+        firsttime = False  # ...go through the loop again
+
+print()
+
+firsttime = True
+while True:
+    try:
+        if firsttime:
+            # Prompt user to input number to test.  Not necessarily related to the sequence produced above
+            isitfib(int(input("Check the Fibonacci Sequence for which number?: ")))
+            break
+        else:
+            isitfib(int(input("Fibonacci Sequence only contains whole numbers.  Please enter an integer: ")))
+            break
+    except:
+        firsttime = False
