@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class fibonacci {
     public static void fibo(int num)
@@ -57,8 +59,58 @@ public class fibonacci {
     }
 
     public static void main(String[] args) {
-        fibo(13);
-        isitfib(13);
-        isitfib(60);
+
+        int uint;  // Variable that will hold user input
+        boolean firsttime = true;
+        while (true)  // Program won't leave loop until it reaches a break statement
+        {
+            Scanner uinput = new Scanner(System.in);  // Scanner object for reading user input
+            try
+            {
+                if (firsttime)  // If this is your first time in the loop
+                {
+                    System.out.print("How many numbers in this sequence?: ");  // Prompt the user for list length
+                }
+                else
+                {
+                    System.out.print("Please enter an integer: ");  // Prompt the user again
+                }
+                uint = uinput.nextInt();  // The next integer entered by the user will be saved under this variable
+                fibo(uint);  // Produce a list of fibonacci numbers.  User's input is the length of the list
+                break;  // If user input is valid, leave the while loop
+            }
+            catch (InputMismatchException e)  // If input is invalid
+            {
+                firsttime = false; // Next time through the loop is not the first time
+            }
+        }
+
+        System.out.println("");
+        firsttime = true;
+
+        while (true)
+        {
+            Scanner uinput = new Scanner(System.in);
+            try
+            {
+                if (firsttime)  // If this is your first time in the loop
+                {
+                    // Prompt the user for a number to search
+                    System.out.print("Check the Fibonacci Sequence for which number?: ");
+                }
+                else
+                {
+                    // Prompt the user again
+                    System.out.print("Fibonacci Sequence only contains whole numbers.  Please enter an integer: ");
+                }
+                uint = uinput.nextInt();  // The next integer entered by the user will be saved under this variable
+                isitfib(uint);  // Tell the user if their input is a fibonacci number
+                break;
+            }
+            catch (InputMismatchException e)  // If input is invalid
+            {
+                firsttime = false; // Next time through the loop is not the first time
+            }
+        }
     }
 }
