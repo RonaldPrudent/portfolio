@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class binary {
 
@@ -29,9 +31,8 @@ public class binary {
             binarr[h] = binstring.charAt(h) - '0';
         // Loop through the array and make sure the parameter is a binary number
         for (int i : binarr) {
-            if (i != 1 && i != 0) {
-                System.out.println("Binary Numbers Only.");
-                System.exit(0);
+            if (i != 1 && i != 0) {  // If number is not binary...
+                throw new InputMismatchException("Binary numbers only.");  // ...consider it an error
             }
         }
         double decresult = 0;  // Variable that will hold that final decimal result
@@ -48,7 +49,56 @@ public class binary {
 
     public static void main(String[] args)
     {
-        printbinary(682);
-        printdecimal(11000101);
+        int uint;  // Variable that will hold user input
+        boolean firsttime = true;
+        while (true)  // Program won't leave loop until it reaches a break statement
+        {
+            Scanner uinput = new Scanner(System.in);  // Scanner object for reading user input
+            try
+            {
+                if (firsttime)  // If this is your first time in the loop
+                {
+                    System.out.print("Enter a decimal number: ");  // Prompt the user for a decimal number
+                }
+                else
+                {
+                    // Prompt the user again if necessary
+                    System.out.print("Please enter a decimal in the form of an integer: ");
+                }
+                uint = uinput.nextInt();  // The next integer entered by the user will be saved under this variable
+                printbinary(uint);  // Convert the decimal into a binary number
+                break;  // If the input is valid, escape the loop
+            }
+            catch (InputMismatchException e)  // If input is invalid
+            {
+                firsttime = false; // Next time through the loop is not the first time
+            }
+        }
+
+        System.out.println("");
+        firsttime = true;
+
+        while (true)
+        {
+            Scanner uinput = new Scanner(System.in);  // Scanner object for reading user input
+            try
+            {
+                if (firsttime)  // If this is your first time in the loop
+                {
+                    System.out.print("Enter a binary number: ");  // Prompt the user for a binary number
+                }
+                else
+                {
+                    System.out.print("Please enter a binary number (binary numbers consist only of '1's and/or '0's): ");
+                }
+                uint = uinput.nextInt();
+                printdecimal(uint);  // Convert the binary number into a decimal
+                break;
+            }
+            catch (InputMismatchException e)  // If input is invalid
+            {
+                firsttime = false; // Next time through the loop is not the first time
+            }
+        }
     }
 }
