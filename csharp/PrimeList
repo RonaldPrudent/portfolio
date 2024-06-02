@@ -27,11 +27,11 @@ namespace PrimeList
         static void listofprimes(int num) 
         {
             if (num < 2)  // if parameter is less than 2
-                Console.WriteLine("[]");  // There are no prime numbers less than 2
+                throw new Exception("There are no prime numbers lower than 2");  // input is invalid.  Cause an error
             else
             {
                 // Create an array with every number between 2 and the entry
-                int[] allnum = new int[num-1];
+                int[] allnum = new int[num - 1];
                 int count = 2;
                 for (int i = 0; i < allnum.Length; i++)
                 {
@@ -42,14 +42,16 @@ namespace PrimeList
                 for (int j = 0; j < allnum.Length; j++)  // For every number in the array...
                 {
                     if (isitprime(allnum[j]))  // ...if it's a prime number...
-                        Console.Write(allnum[j] + " ");  //...print it
+                        Console.Write(allnum[j] + "  ");  //...print it
                 }
             }
         }
 
         static int primorial(int num)
         {
-            if (num < 0)  // If the parameter is negative...
+            if (num < 0)
+                throw new Exception("Can't input a negative numbere here");
+            else if (num == 0)  // If the parameter is zero...
                 return 1;  // ...the primorial is 1
             else
             {
@@ -71,9 +73,44 @@ namespace PrimeList
 
         static void Main(string[] args)
         {
-            listofprimes(102);
+            Boolean firsttime = true;
+            int pulimit;
+            while (true)  // Loop continues until break statement is reached
+            {
+                try
+                {
+                    if (firsttime)  // If this is the first time through the loop
+                        Console.Write("List every Prime between 2 and what number?: ");  // Prompt user for input
+                    else
+                        Console.Write("Please enter an integer no lower than 2.  List every Prime between 2 and what number?: ");  // Prompt user again if necessary
+                    pulimit = Convert.ToInt32(Console.ReadLine());  // Next integer input will be saved under this variable
+                    listofprimes(pulimit);  // Produce a list of primes
+                    break;  // If input is valid, leave the loop
+                }
+                catch (Exception e)  // If input is invalid
+                {
+                    firsttime = false;  // The next time through the loop is not the first
+                }
+            }
             Console.WriteLine("");
-            Console.WriteLine(primorial(5));
+            firsttime = true;
+            while (true)
+            {
+                try
+                {
+                    if (firsttime)
+                        Console.Write("Print which primorial?: ");
+                    else
+                        Console.Write("Please enter an integer no lower than 0.  Print which primorial?: ");
+                    pulimit = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine(primorial(pulimit));  // Calculate the indicated primorial
+                    break;
+                }
+                catch (Exception e)
+                {
+                    firsttime = false;
+                }
+            }
         }
     }
 }
