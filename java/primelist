@@ -1,3 +1,6 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class primelist {
     public static boolean isitprime2(int num)
     {
@@ -23,9 +26,8 @@ public class primelist {
     {
         if(num<2) // if parameter is less than 2
         {
-            // There are no prime numbers less than 2.  Exit.
-            System.out.println("[]");
-            System.exit(3);
+            // There are no prime numbers less than 2, so cause an error
+            throw new InputMismatchException("There are no prime numbers lower than 2.");
         }
         // Create an array with every number between 2 and the entry
         int[]allnum = new int[num-1];
@@ -44,26 +46,80 @@ public class primelist {
 
     public static int primorial(int num)
     {
-        if (num < 0)  // If the parameter is negative...
+        int[] lop;  // Array that will hold the first n prime numbers
+        if (num < 0)
+            throw new InputMismatchException("No numbers lower than 0");
+        else if (num == 0)  // If the parameter is negative...
             return 1;  // ...the primorial is 1
-        int[] lop = new int[num];  // Array that will hold the first n prime numbers (n = parameter)
-        int primproduct = 1;  // Variable that will hold the product of the primes (the primorial)
-        int start = 2;  // The first prime number is 2, so we start filling the array there.
-        for(int i = 0; i<lop.length; i++)  // Loop through the array
-        {
-            while(!isitprime2(start))  // If the current value of "start" isn't prime...
-                start++;  // ...iterate by one until it is
-            lop[i] = start;  // Add this prime number to the array
-            start++;  // iterate by one to avoid adding duplicate primes or zeroes/check if the next number is prime
-        }
-        // Loop through the now filled array and multiply each index by the cumulative product
-        for (int j : lop) primproduct = primproduct * j;
-        return primproduct;  // Return the final product (the primorial)
+        else
+            lop = new int[num];  // The parameter is the length of the array
+            int primproduct = 1;  // Variable that will hold the product of the primes (the primorial)
+            int start = 2;  // The first prime number is 2, so we start filling the array there.
+            for(int i = 0; i<lop.length; i++)  // Loop through the array
+            {
+                while(!isitprime2(start))  // If the current value of "start" isn't prime...
+                    start++;  // ...iterate by one until it is
+                lop[i] = start;  // Add this prime number to the array
+                start++;  // iterate by one to avoid adding duplicate primes or zeroes/check if the next number is prime
+            }
+            // Loop through the now filled array and multiply each index by the cumulative product
+            for (int j : lop) primproduct = primproduct * j;
+            return primproduct;  // Return the final product (the primorial)
     }
 
     public static void main(String[] args)
     {
-        listofprimes(102);
-        System.out.println(primorial(4));
+        int uint;  // Variable that will hold user input
+        boolean firsttime = true;
+        while (true)  // Program won't leave loop until it reaches a break statement
+        {
+            Scanner uinput = new Scanner(System.in);  // Scanner object for reading user input
+            try
+            {
+                if (firsttime)  // If this is your first time in the loop
+                {
+                    // Prompt the user for the upper limit of the list
+                    System.out.print("List every Prime between 2 and what number?: ");
+                }
+                else
+                {
+                    // Prompt the user again if necessary
+                    System.out.print("Please enter an integer no lower than 2.  List every Prime between 2 and what number?: ");
+                }
+                uint = uinput.nextInt();  // The next integer entered by the user will be saved under this variable
+                listofprimes(uint);  // Produce a list of prime numbers
+                break;  // If the input is valid, escape the loop
+            }
+            catch (InputMismatchException e)  // If input is invalid
+            {
+                firsttime = false; // Next time through the loop is not the first time
+            }
+        }
+
+        firsttime = true;
+        while (true)  // Program won't leave loop until it reaches a break statement
+        {
+            Scanner uinput = new Scanner(System.in);  // Scanner object for reading user input
+            try
+            {
+                if (firsttime)  // If this is your first time in the loop
+                {
+                    // Prompt the user for the primorial they want calculated
+                    System.out.print("Print which primorial?: ");
+                }
+                else
+                {
+                    // Prompt the user again if necessary
+                    System.out.print("Please enter an integer no lower than 0.  Print which primorial?: ");
+                }
+                uint = uinput.nextInt();  // The next integer entered by the user will be saved under this variable
+                System.out.println(primorial(uint));  // Produce a list of prime numbers
+                break;  // If the input is valid, escape the loop
+            }
+            catch (InputMismatchException e)  // If input is invalid
+            {
+                firsttime = false; // Next time through the loop is not the first time
+            }
+        }
     }
 }
