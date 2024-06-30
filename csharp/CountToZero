@@ -1,0 +1,58 @@
+using System;
+
+namespace counttozero
+{
+    class Program
+    {
+        static void ctz(int num)
+        {
+            int[] ctzlist = new int[Math.Abs(num) + 1];  //An array for holding descending (or ascending) numbers
+            int i = 0;  // Variable for iterating through array to fill it with numbers
+            if (num < 0)  // If user input is less than zero
+            {
+                while (num < 1)  // loop until count reaches zero
+                {
+                    ctzlist[i] = num;  // put number in this spot in the array
+                    i++;  // Move up to the next array index
+                    num++;  // Move one number closer to zero
+                }
+            }
+            else  // If user input is greater than (or equal to) zero
+            {
+                while (num > -1)  // loop until count reaches zero
+                {
+                    ctzlist[i] = num;
+                    i++;
+                    num--;
+                }
+            }
+            for (int j = 0; j < ctzlist.Length; j++)  // For every index in the array
+            {
+                Console.Write(ctzlist[j] + " ");  // print the number
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Boolean firsttime = true;
+            int userinput;  // Variable that will hold user input
+            while (true)  // Loop continues until break statement is reached
+            {
+                try
+                {
+                    if (firsttime) // If this is your first time through the loop
+                        Console.Write("Begin countdown from what number?: ");  // prompt user to input an integer
+                    else // If this is not your first time through the loop
+                        Console.Write("Please enter an integer: "); // prompt the user again
+                    userinput = Convert.ToInt32(Console.ReadLine());  // save user input to the variable
+                    ctz(userinput); // print count from user input to 0
+                    break; // Escape while loop since user input is valid
+                }
+                catch (Exception)  //If user input is invalid
+                {
+                    firsttime = false;  //Next time through the loop will not be your first time
+                }
+            }
+        }
+    }
+}
