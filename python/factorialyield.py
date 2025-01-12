@@ -17,11 +17,15 @@ while True:  # Loop until valid input is entered
     try:
         if firsttime:  # if this is your first time through the loop
             uinp = int(input("Find the factorial of what number?: "))  # Prompt the user for input
+            if uinp < 0:
+                raise ValueError
             break  # Escape loop if input is valid
         else:  # If this is not your first time through the loop
-            uinp = int(input("Please enter an integer: "))  # Prompt the user again with more specific instructions
+            uinp = int(input("Please enter a positive integer: "))  # Prompt the user again with more specific instructions
+            if uinp < 0:
+                raise ValueError
             break
-    except:  # if input is invalid
+    except ValueError:  # if input is invalid
         firsttime = False  # The next time through the loop is not your first
 
 
